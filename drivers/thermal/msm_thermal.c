@@ -41,6 +41,10 @@
 #include <soc/qcom/scm.h>
 #include <linux/sched/rt.h>
 
+#ifdef CONFIG_STATE_HELPER
+#include <linux/state_helper.h>
+#endif
+
 #define CREATE_TRACE_POINTS
 #define TRACE_MSM_THERMAL
 #include <trace/trace_thermal.h>
@@ -52,7 +56,12 @@
 #define SENSOR_SCALING_FACTOR 1
 #define CPU_DEVICE "cpu%d"
 
-static struct msm_thermal_data msm_thermal_info;
+#define POLLING_DELAY 100
+
+unsigned int temp_threshold = 60;
+module_param(temp_threshold, int, 0755);
+
+struct msm_thermal_data msm_thermal_info;
 static struct delayed_work check_temp_work;
 static bool core_control_enabled;
 static uint32_t cpus_offlined;
