@@ -12,6 +12,8 @@
  */
 
 #include <linux/slab.h>
+#include <linux/new_exp_suspend.h>
+
 #include "cpufreq_governor.h"
 
 /* Conservative governor macros */
